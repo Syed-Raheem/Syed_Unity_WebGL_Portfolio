@@ -3,6 +3,9 @@ using TMPro;
 
 public class InteractionManager : MonoBehaviour
 {
+
+    [SerializeField] private PortfolioUIManager uiManager;
+
     [Header("References")]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TMP_Text interactionPrompt;
@@ -25,6 +28,12 @@ public class InteractionManager : MonoBehaviour
 
     private void CheckForInteraction()
     {
+        if (uiManager != null && uiManager.IsPanelOpen())
+        {
+            HidePrompt();
+            return;
+        }
+
         Ray ray = new Ray(
             playerCamera.transform.position,
             playerCamera.transform.forward
